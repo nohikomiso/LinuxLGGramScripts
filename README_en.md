@@ -54,17 +54,24 @@ Example:
 * `lgtouchpadled.sh` - Turns the touchpad LED on/off.
 * `lgusbcharge.sh` - Toggles USB charging while the laptop is off.
 
-## Tips
-Configurations will be reset at boot, so it is recommended to add them to your root's crontab:
+## Automation at Boot
+Since hardware settings such as the battery limit are reset on power-off, it is recommended to automate the script execution at boot time.
 
-```sh
-sudo crontab -e
-```
+1. **Open the root crontab**
+   ```bash
+   sudo crontab -e
+   ```
+   *Choose 1 (nano) if prompted for an editor.*
 
-Example:
-```
-@reboot /home/USER/path/to/lgbatterylimit.sh on
-```
+2. **Add the command to the end of the file**
+   Append the following line (make sure to use the absolute path of your script):
+   ```bash
+   # Set battery limit to 80% at boot
+   @reboot /home/ytsubame/src/system_setting/github/LinuxLGGramScripts-2016/lgbatterylimit.sh on
+   ```
+
+3. **Save and Exit**
+   In nano, press `Ctrl+O` -> `Enter` -> `Ctrl+X`.
 
 ---
 Japanese documentation is available in [README.md](./README.md).

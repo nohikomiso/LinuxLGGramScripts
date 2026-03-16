@@ -57,17 +57,24 @@ chmod +x *.sh
 * `lgtouchpadled.sh` - キーボードのタッチパッド LED をオン/オフします（タッチパッド自体の動作には影響しません）。
 * `lgusbcharge.sh` - パソコンの電源がオフの時の USB 給電をオン/オフします。
 
-## チップス
-ブート時にはこれらの設定がリセットされるため、`cron` を使用して起動時に自動設定することをお勧めします。
+## システム起動時の自動設定
+LG Gram のバッテリー制限などの設定は電源を切るとリセットされるため、起動のたびに自動実行されるように設定することをお勧めします。
 
-```sh
-sudo crontab -e
-```
+1. **管理者(root)の crontab を開く**
+   ```bash
+   sudo crontab -e
+   ```
+   ※ 初回起動時はエディタを選択（1: nano がおすすめ）してください。
 
-例:
-```sh
-@reboot /home/USER/path/to/lgbatterylimit.sh on
-```
+2. **末尾に設定を追記する**
+   ファイルの最後に以下の内容を貼り付けます（パスはご自身の環境に合わせて書き換えてください）。
+   ```bash
+   # 起動時にバッテリー制限を80%に設定
+   @reboot /home/ytsubame/src/system_setting/github/LinuxLGGramScripts-2016/lgbatterylimit.sh on
+   ```
+
+3. **保存して終了する**
+   `Ctrl+O` -> `Enter` -> `Ctrl+X` で保存されます。
 
 ---
 English documentation is available in [README_en.md](./README_en.md).
