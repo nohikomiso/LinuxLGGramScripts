@@ -31,6 +31,9 @@ sudo apt install linux-headers-$(uname -r)
 # acpi_call (DKMS) のインストール
 sudo apt install acpi-call-dkms
 sudo modprobe acpi_call
+
+# 起動時に自動ロードされるように設定
+echo "acpi_call" | sudo tee /etc/modules-load.d/acpi_call.conf
 ```
 
 ## インストール方法

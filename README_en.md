@@ -28,6 +28,9 @@ sudo apt install linux-headers-$(uname -r)
 # Install acpi_call (DKMS)
 sudo apt install acpi-call-dkms
 sudo modprobe acpi_call
+
+# Ensure acpi_call loads automatically at boot
+echo "acpi_call" | sudo tee /etc/modules-load.d/acpi_call.conf
 ```
 
 ## Installation
