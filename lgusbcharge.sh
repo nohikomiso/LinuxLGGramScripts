@@ -39,7 +39,7 @@ fi
 if [[ $TURN_ON == 1 ]]; then
     echo "Turning on usb charge"
     if [ $USE_ACPI_CALL -eq 1 ]; then
-        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_USB_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL)
+        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_USB_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL | tr -d '\0')
         NEW_VAL=$((VAL_HEX | EC_USB_BIT))
         NEW_VAL_HEX=$(printf "0x%x" $NEW_VAL)
         echo "\_SB.PCI0.LPCB.H_EC.ECWX $EC_USB_ADDR $NEW_VAL_HEX" | sudo tee $ACPI_CALL > /dev/null
@@ -49,7 +49,7 @@ if [[ $TURN_ON == 1 ]]; then
 else
     echo "Turning off usb charge"
     if [ $USE_ACPI_CALL -eq 1 ]; then
-        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_USB_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL)
+        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_USB_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL | tr -d '\0')
         NEW_VAL=$((VAL_HEX & ~EC_USB_BIT))
         NEW_VAL_HEX=$(printf "0x%x" $NEW_VAL)
         echo "\_SB.PCI0.LPCB.H_EC.ECWX $EC_USB_ADDR $NEW_VAL_HEX" | sudo tee $ACPI_CALL > /dev/null

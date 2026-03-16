@@ -18,7 +18,7 @@ fi
 TURN_ON=1
 if [ $# -eq 0 ]; then
     if [ $USE_ACPI_CALL -eq 1 ]; then
-        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_FNLOCK_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL)
+        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_FNLOCK_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL | tr -d '\0')
         VAL=$((VAL_HEX))
         if [[ $VAL == 1 ]]; then
             TURN_ON=0

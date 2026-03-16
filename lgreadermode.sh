@@ -18,7 +18,7 @@ fi
 
 if [ $# -eq 0 ]; then
     if [ $USE_ACPI_CALL -eq 1 ]; then
-        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_READER_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL)
+        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_READER_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL | tr -d '\0')
         VAL=$((VAL_HEX))
         if [ $((VAL & EC_READER_BIT)) -ne 0 ]; then
             TURN_ON=0
@@ -44,7 +44,7 @@ fi
 if [[ $TURN_ON == 1 ]]; then
     echo "Turning on reader mode"
     if [ $USE_ACPI_CALL -eq 1 ]; then
-        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_READER_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL)
+        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_READER_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL | tr -d '\0')
         NEW_VAL=$((VAL_HEX | EC_READER_BIT))
         NEW_VAL_HEX=$(printf "0x%x" $NEW_VAL)
         echo "\_SB.PCI0.LPCB.H_EC.ECWX $EC_READER_ADDR $NEW_VAL_HEX" | sudo tee $ACPI_CALL > /dev/null
@@ -54,7 +54,7 @@ if [[ $TURN_ON == 1 ]]; then
 else
     echo "Turning off reader mode"
     if [ $USE_ACPI_CALL -eq 1 ]; then
-        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_READER_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL)
+        VAL_HEX=$(echo "\_SB.PCI0.LPCB.H_EC.ECRX $EC_READER_ADDR" | sudo tee $ACPI_CALL > /dev/null && sudo cat $ACPI_CALL | tr -d '\0')
         NEW_VAL=$((VAL_HEX & ~EC_READER_BIT))
         NEW_VAL_HEX=$(printf "0x%x" $NEW_VAL)
         echo "\_SB.PCI0.LPCB.H_EC.ECWX $EC_READER_ADDR $NEW_VAL_HEX" | sudo tee $ACPI_CALL > /dev/null
