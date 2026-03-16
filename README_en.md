@@ -1,54 +1,68 @@
-# Linux LG Gram Scripts (2016年モデル対応版)
+# Linux LG Gram Scripts (Fork for 2016 model support)
 
-LG Gram ノートパソコンで Linux ドライバーの機能を活用するためのスクリプト集です。
+A set of scripts to facilitate the usage of Linux drivers for LG Gram laptops. The driver might be available on kernels 4.20 and above.
 
-このリポジトリは [leoomi/LinuxLGGramScripts](https://github.com/leoomi/LinuxLGGramScripts) のフォークであり、オリジナルのドライバーでは完全に対応していない **LG gram 15Z960 (2016年モデル)** 用の修正が含まれています。
+This personal fork includes support for the **LG gram 15Z960 (2016 model)** and potentially other legacy models using `acpi_call` as a fallback when the standard kernel driver is unavailable.
 
-## 2016年モデル (15Z960) などの旧モデルについて
-標準の `lg_laptop` カーネルドライバーで充電制限パスが見つからない旧モデルでは、`acpi_call` をフォールバックとして使用します。
+## Verified Environment
+This fork's modifications (`acpi_call` fallback) have been verified to work on the following environment:
 
-### 必須パッケージのインストール
-旧モデルで動作させるには、以下のパッケージが必要です。
+| Item | Details |
+| :--- | :--- |
+| **Model** | LG gram 15Z960-G.AA12J (2016) |
+| **BIOS** | 15ZA1730 X64 (2017/05/29) |
+| **KBC** | 38.10.00 |
+| **CPU** | Intel Core i5-6200U |
+| **OS** | Ubuntu 24.04.4 LTS |
+| **Kernel** | 6.11.0-29-generic |
+
+## Prerequisites for Legacy Models (e.g., 2016 model)
+If you are using an older LG gram (like the 15Z960) where the standard sysfs paths are not available, you need to install `acpi_call`. On Ubuntu 24.04, it can be easily installed via DKMS:
+
 ```bash
+# Install kernel headers (required for DKMS)
+sudo apt install linux-headers-$(uname -r)
+
+# Install acpi_call (DKMS)
 sudo apt install acpi-call-dkms
 sudo modprobe acpi_call
 ```
 
-## インストール方法
-このリポジトリをクローンし、ディレクトリを PATH に追加するか、`.sh` ファイルを既存の PATH が通ったディレクトリにコピーしてください。また、スクリプトに実行権限を与えてください。
+## Installation
+Clone this repository in a directory and add it to your PATH. Alternatively, copy all the .sh files to a directory already in your path. Also make sure the scripts are executable:
 
 ```sh
 chmod +x *.sh
 ```
 
-## 使い方
-これらのスクリプトは `sudo` を使用するため、パスワードが必要になる場合があります。
-全てのスクリプトは、引数なしで実行すると現在の設定を反転（トグル）させます。また、明確に **on** または **off** をパラメータとして指定することも可能です。
+## Usage
+These scripts use sudo, so your password might be needed.
+All scripts can be used to toggle on and off its respective feature. Alternatively, **on** and **off** can be used as a parameter.
 
-例:
+Example:
 ```sh
 ./lgbatterylimit.sh on
 ```
 
-### 利用可能なスクリプト:
-* `lgbatterylimit.sh` - 有効にすると、バッテリーの充電を 80% に制限します。バッテリーの寿命を延ばすのに役立ちます。
-* `lgfamode.sh` - 静音ファンモードを有効にします。
-* `lgfnlock.sh` - FN ロックを切り替えます。有効な場合、FN キーを押さなくても F キーの特殊機能が動作します。
-* `lgreadermode.sh` - キーボードのリーダーモード LED を点灯させ、ブルーライトを削減するリーダーモードを有効にします。
-* `lgtouchpadled.sh` - キーボードのタッチパッド LED をオン/オフします（タッチパッド自体の動作には影響しません）。
-* `lgusbcharge.sh` - パソコンの電源がオフの時の USB 給電をオン/オフします。
+### Available Scripts:
+* `lgbatterylimit.sh` - Limits battery charge to 80% (Verified on 2016 model).
+* `lgreadermode.sh` - Toggles reader mode / blue light reduction (Verified on 2016 model).
+* `lgfanmode.sh` - Toggles silent fan mode (Implemented, untested on 2016 model).
+* `lgfnlock.sh` - Toggles FN lock (Not supported on 15Z960).
+* `lgtouchpadled.sh` - Turns the touchpad LED on/off.
+* `lgusbcharge.sh` - Toggles USB charging while the laptop is off.
 
-## チップス
-ブート時にはこれらの設定がリセットされるため、`cron` を使用して起動時に自動設定することをお勧めします。
+## Tips
+Configurations will be reset at boot, so it is recommended to add them to your root's crontab:
 
 ```sh
 sudo crontab -e
 ```
 
-例:
-```sh
+Example:
+```
 @reboot /home/USER/path/to/lgbatterylimit.sh on
 ```
 
 ---
-English documentation is available in [README_en.md](./README_en.md).
+Japanese documentation is available in [README.md](./README.md).
