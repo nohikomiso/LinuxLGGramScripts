@@ -1,3 +1,4 @@
+#!/bin/bash
 DRIVER="/sys/devices/platform/lg-laptop/fn_lock"
 ACPI_CALL="/proc/acpi/call"
 

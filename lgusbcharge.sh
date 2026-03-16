@@ -1,3 +1,4 @@
+#!/bin/bash
 DRIVER="/sys/devices/platform/lg-laptop/usb_charge"
 ACPI_CALL="/proc/acpi/call"
 

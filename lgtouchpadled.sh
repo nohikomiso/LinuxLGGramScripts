@@ -1,4 +1,5 @@
-DRIVER=" /sys/devices/platform/lg-laptop/leds/tpad_led/brightness"
+#!/bin/bash
+DRIVER="/sys/devices/platform/lg-laptop/leds/tpad_led/brightness"
 if [ ! -f $DRIVER ]; then
   echo "LG driver file not found"
   exit -1

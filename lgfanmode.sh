@@ -1,3 +1,4 @@
+#!/bin/bash
 DRIVER="/sys/devices/platform/lg-laptop/fan_mode"
 ACPI_CALL="/proc/acpi/call"
 

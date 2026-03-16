@@ -1,3 +1,4 @@
+#!/bin/bash
 DRIVER="/sys/class/power_supply/CMB0/charge_control_end_threshold"
 OLD_DRIVER="/sys/devices/platform/lg-laptop/battery_care_limit"
 ACPI_CALL="/proc/acpi/call"
