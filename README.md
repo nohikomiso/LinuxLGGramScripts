@@ -1,3 +1,7 @@
+# Linux LG Gram Scripts (2016年モデル対応版)
+
+Language: **日本語** | [English](README_en.md)
+
 LG Gram ノートパソコンで Linux ドライバーの機能を活用するためのスクリプト集です。
 
 このリポジトリは [leoomi/LinuxLGGramScripts](https://github.com/leoomi/LinuxLGGramScripts) のフォークであり、オリジナルのドライバーでは完全に対応していない **LG gram 15Z960 (2016年モデル)** 用の修正が含まれています。

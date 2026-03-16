@@ -1,5 +1,7 @@
 # Linux LG Gram Scripts (Fork for 2016 model support)
 
+Language: [日本語](README.md) | **English**
+
 A set of scripts to facilitate the usage of Linux drivers for LG Gram laptops. The driver might be available on kernels 4.20 and above.
 
 This personal fork includes support for the **LG gram 15Z960 (2016 model)** and potentially other legacy models using `acpi_call` as a fallback when the standard kernel driver is unavailable.
