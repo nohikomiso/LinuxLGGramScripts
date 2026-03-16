@@ -1,7 +1,16 @@
 # Linux LG Gram Scripts
 A set of scripts to facilitate the usage of Linux drivers for LG Gram laptops. The driver might be available on kernels 4.20 and above.
-This has only been tested on the 15Z980 model and likely works with other Z980 models as well. 14Z90 reportedly did not work with Ubuntu 20.04.
+This has only been tested on the 15Z980 model and likely works with other Z980 models as well.
+This personal fork also includes support for the **15Z960 (2016 model)** and potentially other legacy models using `acpi_call` as a fallback when the kernel driver is unavailable.
+
 For more information on the LG Gram Linux driver and how these scripts work, visit [this link](https://www.kernel.org/doc/html/latest/admin-guide/laptops/lg-laptop.html)
+
+## Prerequisites for Legacy Models (e.g., 2016 model)
+If you are using an older LG gram (like the 15Z960) where the `/sys/class/power_supply/CMB0/charge_control_end_threshold` path is not available, you need to install `acpi_call`:
+```bash
+sudo apt install acpi-call-dkms
+sudo modprobe acpi_call
+```
 
 ## Installation
 Clone this repository in a directory and add it to your PATH. Alternatively, copy all the .sh files to a directory already in your path. Also make sure the scripts are executable, if not or unsure, run:
